@@ -35,7 +35,7 @@ app.use(
     dest: path.join(__dirname, 'public'),
     indentedSyntax: false,
     sourceMap: true,
-  })
+  }),
 );
 app.use(express.static(path.join(__dirname, 'public')));
 
