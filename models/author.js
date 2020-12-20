@@ -8,10 +8,14 @@ const AuthorSchema = new mongoose.Schema({
 });
 
 // Virtual for getting an author's full name.
-AuthorSchema.virtual('name').get(() => `${this.first_name} ${this.last_name}`);
+AuthorSchema.virtual('name').get(function getFullName() {
+  return `${this.first_name} ${this.last_name}`;
+});
 
 // Virtual for getting an author's lifespan.
-AuthorSchema.virtual('lifespan').get(() => (this.date_of_death.getYear() - this.date_of_birth.getYear()).toString());
+AuthorSchema.virtual('lifespan').get(function getLifespan() {
+  return (this.date_of_death.getYear() - this.date_of_birth.getYear()).toString();
+});
 
 // Virtual for getting an author's url.
 AuthorSchema.virtual('url').get(() => `/catalog/author/${this._id}`);
