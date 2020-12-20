@@ -1,2 +1,11 @@
 <h1>{{title}}</h1>
-<p>Welcome to {{title}}</p>
+<p>Welcome to <b>LocalLibrary</b> a basic express website made to learn express.</p>
+<h2>Dynamic content</h2>
+<p>The library has the following record counts:</p>
+<ul>
+  <li><b>Books: </b>{{data.books}}</li>
+  <li><b>Copies: </b>{{data.bookInstances}}</li>
+  <li><b>Copies Available: </b>{{data.bookInstancesAvailable}}</li>
+  <li><b>Authors: </b>{{data.authors}}</li>
+  <li><b>Genres: </b>{{data.genres}}</li>
+</ul>

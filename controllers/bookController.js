@@ -1,7 +1,31 @@
 const Book = require('../models/book');
+const Author = require('../models/author');
+const Genre = require('../models/genre');
+const BookInstance = require('../models/book-instance');
 
 exports.index = (req, res) => {
-  res.send('NOT IMPLEMENTED: Site Home Page');
+  Promise.all([
+    Book.countDocuments({}),
+    BookInstance.countDocuments({}),
+    BookInstance.countDocuments({ status: 'Available' }),
+    Author.countDocuments({}),
+    Genre.countDocuments({}),
+  ])
+    .then((results) => {
+      // Map results from queries to an object.
+      const data = {
+        books: results[0],
+        bookInstances: results[1],
+        bookInstancesAvailable: results[2],
+        authors: results[3],
+        genres: results[4],
+      };
+      res.render('index', { data, title: 'Local Library Home' });
+    })
+    .catch((err) => {
+      res.status(500);
+      res.render('error', { message: 'Database error', error: { status: 500 } });
+    });
 };
 
 // Display list of all books.
