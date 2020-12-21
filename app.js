@@ -5,6 +5,8 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const sassMiddleware = require('node-sass-middleware');
+const hbs = require('hbs');
+const hbsHelpers = require('./helpers/handlebars');
 
 const indexRouter = require('./routes/index');
 const catalogRouter = require('./routes/catalog');
@@ -20,6 +22,9 @@ const db = mongoose.connection;
 
 // eslint-disable-next-line no-console
 db.on('error', console.error.bind(console, 'MongoDB connection error: '));
+
+// Register hbs helpers
+hbsHelpers(hbs);
 
 // View engine setup
 app.set('views', path.join(__dirname, 'views'));
