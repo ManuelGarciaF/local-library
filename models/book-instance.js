@@ -8,13 +8,13 @@ const BookInstanceSchema = new mongoose.Schema({
     required: true,
     enum: ['Available', 'Maintenance', 'Loaned', 'Reserved'],
     default: 'Maintenance',
-    due_back: { type: Date, default: Date.now },
   },
+  due_back: { type: Date, default: Date.now },
 });
 
 // Virtual for getting a book instance's url.
-BookInstanceSchema.virtual('url').get(
-  () => `/catalog/bookinstance/${this._id}`,
-);
+BookInstanceSchema.virtual('url').get(function getUrl() {
+  return `/catalog/bookinstance/${this._id}`;
+});
 
 module.exports = mongoose.model('BookInstance', BookInstanceSchema);
