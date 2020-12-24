@@ -4,10 +4,18 @@ const BookInstance = require('../models/book-instance');
 exports.bookinstance_list = (req, res) => {
   BookInstance.find({})
     .populate('book')
-    .then((bookInstanceList) => {
+    .then((bookInstances) => {
+      // Sort bookInstances by the book's title.
+      const sortedBookInstances = bookInstances.sort((a, b) => {
+        if (a.book.title.toUpperCase() < b.book.title.toUpperCase()) {
+          return -1;
+        }
+        return 1;
+      });
+
       res.render('bookinstance-list', {
         title: 'Book Instance list',
-        bookInstanceList,
+        bookInstanceList: sortedBookInstances,
       });
     });
 };
