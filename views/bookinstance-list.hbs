@@ -16,7 +16,7 @@
         {{/ifEquals}}
         {{#ifEquals status "Loaned"}}
           <span class="text-warning">Loaned</span>
-          <span>(Due: {{../due_back}})</span>
+          <span>(Due: {{../due_back_formatted}})</span>
         {{/ifEquals}}
         {{#ifEquals status "Reserved"}}
           <span class="text-warning">
