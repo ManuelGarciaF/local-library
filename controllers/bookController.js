@@ -3,7 +3,7 @@ const Author = require('../models/author');
 const Genre = require('../models/genre');
 const BookInstance = require('../models/book-instance');
 
-exports.index = (req, res) => {
+exports.index = (_req, res, next) => {
   Promise.all([
     Book.countDocuments({}),
     BookInstance.countDocuments({}),
@@ -23,15 +23,21 @@ exports.index = (req, res) => {
       res.render('index', { data, title: 'Local Library Home' });
     })
     .catch((err) => {
-      res.status(500);
-      res.render('error', { message: 'Database error', error: { status: 500 } });
+      next(err);
     });
 };
 
 // Display list of all books.
-exports.book_list = async (req, res) => {
-  const books = await Book.find({}, 'title author').populate('author').exec();
-  res.render('book-list', { title: 'Book List', bookList: books });
+exports.book_list = (req, res, next) => {
+  Book.find({}, 'title author')
+    .populate('author')
+    .sort({ title: 'ascending' })
+    .then((bookList) => {
+      res.render('book-list', { bookList, title: 'Book List' });
+    })
+    .catch((err) => {
+      next(err);
+    });
 };
 
 // Display detail page for a specific book.
