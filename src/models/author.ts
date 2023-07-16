@@ -1,6 +1,6 @@
-const mongoose = require('mongoose');
+import {Schema, model} from 'mongoose';
 
-const authorSchema = new mongoose.Schema({
+const authorSchema = new Schema({
   first_name: { type: String, required: true, maxlength: 100 },
   family_name: { type: String, required: true, maxlength: 100 },
   date_of_birth: { type: Date },
@@ -15,4 +15,4 @@ authorSchema.virtual('url').get(function () {
   return `/catalog/author/${this._id}`;
 });
 
-module.exports = mongoose.model('Author', authorSchema);
+export default model('Author', authorSchema);

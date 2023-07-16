@@ -1,16 +1,18 @@
-const createError = require('http-errors');
-const express = require('express');
-const path = require('path');
-const cookieParser = require('cookie-parser');
-const logger = require('morgan');
-const mongoose = require('mongoose');
-require('dotenv').config();
+import createError from 'http-errors';
+import express from 'express';
+import { Request, Response, NextFunction } from 'express';
+import path from 'path';
+import cookieParser from 'cookie-parser';
+import logger from 'morgan';
+import mongoose from 'mongoose';
+import dotenv from 'dotenv';
 
-const indexRouter = require('./routes/index');
-const usersRouter = require('./routes/users');
+import indexRouter from './routes/index';
 
 const app = express();
 
+// Set up mongoose connection
+dotenv.config();
 mongoose.set('strictQuery', false);
 const mongoURL = `mongodb+srv://${process.env.MONGODB_USER}:${process.env.MONGODB_PASS}@cluster0.e902pw3.mongodb.net/local_library?retryWrites=true&w=majority`;
 
@@ -30,7 +32,6 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
 
 // catch 404 and forward to error handler
 app.use((_req, _res, next) => {
@@ -38,7 +39,7 @@ app.use((_req, _res, next) => {
 });
 
 // error handler
-app.use((err, req, res, _next) => {
+app.use((err: any, req: Request, res: Response, _next: NextFunction) => {
     // set locals, only providing error in development
     res.locals.message = err.message;
     res.locals.error = req.app.get('env') === 'development' ? err : {};
@@ -48,4 +49,4 @@ app.use((err, req, res, _next) => {
     res.render('error');
 });
 
-module.exports = app;
+export default app;
