@@ -1,8 +1,23 @@
+html {
+  --color-link: #3d6cb9;
+}
+
 body {
-  padding: 50px;
+  padding: 30px 20px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
 a {
-  color: #00b7ff;
+  color: var(--color-link) !important;
+  text-decoration: none !important;
+}
+a:hover {
+  text-decoration: underline !important;
+}
+
+.sidebar-nav {
+  margin-top: 0.5em;
+  padding: 0;
+  list-style: none;
+  max-width: 20em;
 }

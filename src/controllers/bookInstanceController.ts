@@ -4,7 +4,9 @@ import { Request, Response, NextFunction } from "express";
 
 // Display list of all BookInstances.
 export const bookInstanceList = asyncHandler(async (req, res, next) => {
-    res.send("NOT IMPLEMENTED: BookInstance list");
+    const bookInstances = await BookInstance.find().populate("book").exec();
+    const b1 = bookInstances[0];
+    res.render("bookinstances", { bookInstances });
 });
 
 // Display detail page for a specific BookInstance.

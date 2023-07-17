@@ -1,0 +1,8 @@
+<ul class="container">
+  <% books.forEach(book => { %>
+    <li class="book-item">
+      <a href="#" hx-get="<%= book.url %>" class="book-title"><%= book.title %></a>
+      by <i><%= book.author.name %></i>
+    </li>
+  <% }) %>
+</ul>

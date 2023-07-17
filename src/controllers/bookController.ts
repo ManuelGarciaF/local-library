@@ -1,13 +1,42 @@
 import Book from "../models/book";
+import Author from "../models/author";
+import Genre from "../models/genre";
+import BookInstance from "../models/bookInstance";
 import asyncHandler from "express-async-handler";
 
-export const index = asyncHandler(async (req, res, next) => {
-  res.send("NOT IMPLEMENTED: Site Home Page");
+
+export const catalogInfo = asyncHandler(async (req, res, next) => {
+  const [
+    numBooks,
+    numBookInstances,
+    numAvailableBookInstances,
+    numAuthors,
+    numGenres
+  ] = await Promise.all([
+    Book.countDocuments({}).exec(),
+    BookInstance.countDocuments({}).exec(),
+    BookInstance.countDocuments({ status: "Available" }).exec(),
+    Author.countDocuments({}).exec(),
+    Genre.countDocuments({}).exec()
+  ]);
+
+  res.render("catalog", {
+    numBooks,
+    numBookInstances,
+    numAvailableBookInstances,
+    numAuthors,
+    numGenres
+  });
 });
 
 // Display list of all books.
 export const bookList = asyncHandler(async (req, res, next) => {
-  res.send("NOT IMPLEMENTED: Book list");
+  const books = await Book.find({}, "title author")
+    .sort({ title: 1 })
+    .populate("author")
+    .exec();
+
+  res.render("books", { books });
 });
 
 // Display detail page for a specific book.

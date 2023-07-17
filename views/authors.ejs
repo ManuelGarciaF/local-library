@@ -1,0 +1,12 @@
+<ul class="row container">
+  <% authors.forEach((author) => { %>
+    <li>
+      <a href="#" hx-get="<%= author.url %>">
+        <%= author.name %>
+      </a>
+      <small>
+        <%= author.lifespan %>
+      </small>
+    </li>
+  <% }) %>
+</ul>

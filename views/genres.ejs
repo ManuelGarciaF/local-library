@@ -1,0 +1,7 @@
+<ul class="container">
+  <% genres.forEach(genre => { %>
+    <li>
+      <a href="#" hx-get="<%= genre.url %>" ><%= genre.name %></a>
+    </li>
+  <% }) %>
+</ul>

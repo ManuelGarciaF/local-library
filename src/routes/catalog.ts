@@ -11,7 +11,12 @@ const router = express.Router();
 /// BOOK ROUTES ///
 
 // GET catalog home page.
-router.get("/", bookController.index);
+router.get("/", (req: Request, res: Response, next: NextFunction) => {
+    res.render("index", {});
+});
+
+// GET catalog info
+router.get("/info", bookController.catalogInfo);
 
 // GET request for creating a Book. NOTE This must come before routes that display Book (uses id).
 router.get("/book/create", bookController.bookCreateGet);
@@ -93,38 +98,38 @@ router.get("/genres", genreController.genreList);
 
 // GET request for creating a BookInstance. NOTE This must come before route that displays BookInstance (uses id).
 router.get(
-  "/bookinstance/create",
-  bookInstanceController.bookInstanceCreateGet,
+    "/bookinstance/create",
+    bookInstanceController.bookInstanceCreateGet,
 );
 
 // POST request for creating BookInstance.
 router.post(
-  "/bookinstance/create",
-  bookInstanceController.bookInstanceCreatePost,
+    "/bookinstance/create",
+    bookInstanceController.bookInstanceCreatePost,
 );
 
 // GET request to delete BookInstance.
 router.get(
-  "/bookinstance/:id/delete",
-  bookInstanceController.bookInstanceDeleteGet,
+    "/bookinstance/:id/delete",
+    bookInstanceController.bookInstanceDeleteGet,
 );
 
 // POST request to delete BookInstance.
 router.post(
-  "/bookinstance/:id/delete",
-  bookInstanceController.bookInstanceDeletePost,
+    "/bookinstance/:id/delete",
+    bookInstanceController.bookInstanceDeletePost,
 );
 
 // GET request to update BookInstance.
 router.get(
-  "/bookinstance/:id/update",
-  bookInstanceController.bookInstanceUpdateGet,
+    "/bookinstance/:id/update",
+    bookInstanceController.bookInstanceUpdateGet,
 );
 
 // POST request to update BookInstance.
 router.post(
-  "/bookinstance/:id/update",
-  bookInstanceController.bookInstanceUpdatePost,
+    "/bookinstance/:id/update",
+    bookInstanceController.bookInstanceUpdatePost,
 );
 
 // GET request for one BookInstance.

@@ -5,7 +5,7 @@
   "scripts": {
     "start": "ts-node dist/www",
     "dev": "DEBUG=mozilla-express-tutorial:* ts-node src/server.ts",
-    "watch": "fd --extension js | entr -r npm run dev",
+    "watch": "fd --extension ts | entr -r npm run dev",
     "build": "tsc -p ."
   },
   "dependencies": {

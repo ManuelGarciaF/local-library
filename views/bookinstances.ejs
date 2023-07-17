@@ -1,0 +1,19 @@
+<ul class="container">
+  <% bookInstances.forEach((bookInstance)=> { %>
+    <li class="book-item">
+      <a href="#" hx-get="<%= bookInstance.url %>" class="book-title">
+        <%= bookInstance.book.title %> : <%= bookInstance.imprint %>
+      </a>
+      <% if (bookInstance.status==="Available" ) { %>
+        <span class="text-success">Available</span>
+      <% } else if (bookInstance.status==="Maintenance" ) { %>
+        <span class="text-danger">In Maintenance</span>
+      <% } else if (bookInstance.status==="Loaned" ) { %>
+        <span class="text-warning">Loaned</span>
+        <small>(Due: <%= bookInstance.due_back_formatted %>)</small>
+      <% } else { %>
+        <span class="text-warning">Reserved</span>
+      <% } %>
+    </li>
+  <% }) %>
+</ul>
