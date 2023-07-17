@@ -1,0 +1,53 @@
+<h2>
+  <%= book.title %>
+</h2>
+<div class="container row">
+  <div class="col-8">
+    <a href="#" hx-get="<%= book.author.url %>">
+      <%= book.author.name %>
+      <%= book.author.lifetime %>
+    </a>
+    <% if (book.genre.length> 0) { %>
+      <div class="genres">
+        <u>Genres:</u>
+        <% book.genre.forEach(genre=> { %>
+          <span>
+            <%= genre.name %>
+          </span>
+        <% }) %>
+      </div>
+    <% } %>
+    <h4>Summary</h4>
+    <p>
+        <%= book.summary %>
+    </p>
+    <p>ISBN: <%= book.isbn %>
+    </p>
+  </div>
+  <div class="col-4">
+    <h4>Copies</h4>
+    <ul>
+      <% bookInstances.forEach(instance=> { %>
+        <li>
+          <a href="#" hx-get="<%= instance.url %>">
+            <%= instance.imprint %>
+          </a>
+          <% if (instance.status==="Available" ) { %>
+            <span class="text-success">Available</span>
+          <% } else if (instance.status==="Maintenance" ) { %>
+            <span class="text-danger">In Maintenance</span>
+          <% } else if (instance.status==="Loaned" ) { %>
+            <span class="text-warning">Loaned</span>
+            <small>(Due: <%= instance.due_back_formatted %>)</small>
+          <% } else { %>
+            <span class="text-warning">Reserved</span>
+          <% } %>
+        </li>
+      <% }) %>
+    </ul>
+    <% if (bookInstances.length===0) { %>
+      <p>There are no copies of this book in the library.</p>
+    <% } %>
+  </div>
+
+</div>
