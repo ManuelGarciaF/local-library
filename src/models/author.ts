@@ -1,6 +1,16 @@
 import { Schema, model } from 'mongoose';
 
-const authorSchema = new Schema({
+interface IAuthor {
+  first_name: string,
+  family_name: string,
+  date_of_birth?: Date,
+  date_of_death?: Date,
+  url: string,
+  name: string,
+  lifespan: string
+}
+
+const authorSchema = new Schema<IAuthor>({
   first_name: { type: String, required: true, maxlength: 100 },
   family_name: { type: String, required: true, maxlength: 100 },
   date_of_birth: { type: Date },

@@ -1,6 +1,15 @@
-import { Schema, model } from 'mongoose';
+import { Schema, model, Types } from 'mongoose';
 
-const bookInstanceSchema = new Schema({
+interface IBookInstance {
+  book: Types.ObjectId,
+  imprint: string,
+  status: string,
+  due_back?: Date,
+  url: string,
+  due_back_formatted: string,
+}
+
+const bookInstanceSchema = new Schema<IBookInstance>({
   book: { type: Schema.Types.ObjectId, ref: 'Book', required: true },
   imprint: { type: String, required: true },
   status: {

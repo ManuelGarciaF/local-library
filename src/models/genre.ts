@@ -1,6 +1,11 @@
 import { Schema, model } from 'mongoose';
 
-const genreSchema = new Schema({
+interface IGenre {
+  name: string,
+  url: string
+}
+
+const genreSchema = new Schema<IGenre>({
   name: { type: String, required: true, minLength: 3, maxlength: 100 },
 });
 
