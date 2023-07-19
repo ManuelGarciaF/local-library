@@ -4,8 +4,7 @@
   "private": true,
   "scripts": {
     "start": "ts-node dist/www",
-    "dev": "DEBUG=mozilla-express-tutorial:* ts-node src/server.ts",
-    "watch": "fd --extension ts | entr -r npm run dev",
+    "dev": "DEBUG=mozilla-express-tutorial:* ts-node-dev src/server.ts",
     "build": "tsc -p ."
   },
   "dependencies": {
@@ -19,6 +18,7 @@
     "ejs": "^3.1.9",
     "express": "^4.18.2",
     "express-async-handler": "^1.2.0",
+    "express-validator": "^7.0.1",
     "http-errors": "~1.6.3",
     "mongoose": "^7.3.4",
     "morgan": "~1.9.1",
@@ -33,6 +33,7 @@
     "eslint-plugin-import": "^2.27.5",
     "eslint-plugin-n": "^16.0.1",
     "eslint-plugin-promise": "^6.1.1",
+    "ts-node-dev": "^2.0.0",
     "typescript": "^5.1.6"
   }
 }

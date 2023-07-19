@@ -1,7 +1,8 @@
 import Genre from "../models/genre";
 import Book from "../models/book";
-import { Errback } from "express";
 import asyncHandler from "express-async-handler";
+import { body, validationResult } from "express-validator";
+import { Request, Response, NextFunction } from "express";
 
 // Display list of all Genre.
 export const genreList = asyncHandler(async (req, res, next) => {
@@ -27,14 +28,38 @@ export const genreDetail = asyncHandler(async (req, res, next) => {
 });
 
 // Display Genre create form on GET.
-export const genreCreateGet = asyncHandler(async (req, res, next) => {
-  res.send("NOT IMPLEMENTED: Genre create GET");
-});
+export const genreCreateGet = (req: Request, res: Response, next: NextFunction) => {
+  res.render("genreform", { errors: [], genre: null });
+};
 
 // Handle Genre create on POST.
-export const genreCreatePost = asyncHandler(async (req, res, next) => {
-  res.send("NOT IMPLEMENTED: Genre create POST");
-});
+export const genreCreatePost = [
+  body("name", "Genre name must contain at least 3 characters")
+    .trim()
+    .isLength({ min: 3 })
+    .escape(),
+  asyncHandler(async (req: Request, res: Response, next: NextFunction) => {
+    const errors = validationResult(req);
+
+    const name = req.body.name;
+    const genre = new Genre({ name });
+
+    // If there are errors.
+    if (!errors.isEmpty()) {
+      res.render("genreform", { genre, errors: errors.array() });
+      return;
+    }
+
+    const genreExists = await Genre.findOne({ name }).exec();
+    if (genreExists) {
+      res.redirect(genreExists.url);
+      return;
+    }
+
+    await genre.save();
+    res.redirect(genre.url);
+  }),
+];
 
 // Display Genre delete form on GET.
 export const genreDeleteGet = asyncHandler(async (req, res, next) => {
