@@ -1,0 +1,30 @@
+<h2>
+  <%= author.name %>
+</h2>
+<% if (author.date_of_birth) { %>
+  <p>Born: <%= author.date_of_birth_formatted %>
+<% } %>
+<% if (author.date_of_death) { %>
+  <p>Died: <%= author.date_of_death_formatted %>
+<% } %>
+</p>
+
+<% if (books.length > 0) { %>
+<div class="container-fluid row">
+  <% books.forEach(book => { %>
+    <div class="card m-2" style="width: 18rem;">
+      <div class="card-body">
+        <h5 class="card-title">
+          <a href="#" hx-get="<%= book.url %>"><%= book.title %></a>
+        </h5>
+        <p class="card-text"><%= book.summary %></p>
+        <% book.genre.forEach(genre => { %>
+          <a href="#" hx-get="<%= genre.url %>" class="card-link"><%= genre.name %></a>
+        <% }) %>
+      </div>
+    </div>
+  <% }) %>
+</div>
+<% } else { %>
+  <p>There are no books from this author registered in the library.</p>
+<% } %>

@@ -7,7 +7,9 @@ interface IAuthor {
   date_of_death?: Date,
   url: string,
   name: string,
-  lifespan: string
+  lifespan: string,
+  date_of_birth_formatted: string,
+  date_of_death_formatted: string,
 }
 
 const authorSchema = new Schema<IAuthor>({
@@ -31,6 +33,16 @@ authorSchema.virtual('lifespan').get(function () {
   const dob = this.date_of_birth.toLocaleDateString('en-GB', { year: 'numeric', month: 'long', day: 'numeric', });
   const dod = this.date_of_death.toLocaleDateString('en-GB', { year: 'numeric', month: 'long', day: 'numeric', });
   return `(${dob} - ${dod})`;
+});
+
+authorSchema.virtual('date_of_birth_formatted').get(function () {
+  if (!this.date_of_birth) return '';
+  return this.date_of_birth.toLocaleDateString('en-GB', { year: 'numeric', month: 'long', day: 'numeric', });
+});
+
+authorSchema.virtual('date_of_death_formatted').get(function () {
+  if (!this.date_of_death) return '';
+  return this.date_of_death.toLocaleDateString('en-GB', { year: 'numeric', month: 'long', day: 'numeric', });
 });
 
 export default model('Author', authorSchema);
