@@ -1,0 +1,28 @@
+<h2>New Author</h2>
+<div class="col">
+
+  <% if (errors.length > 0) { %>
+    <ul class="list-unstyled alert alert-danger">
+      <% errors.forEach(error=> { %>
+        <li>
+          <%= error.msg %>
+        </li>
+      <% }) %>
+    </ul>
+  <% } %>
+
+  <form hx-post="/catalog/author/create" action="">
+    <div class="form-group mb-3">
+      <label class="form-label" for="first_name">First Name<span class="text-info">*</span>:</label>
+      <input id="first_name" class="form-control" type="text" name="first_name" value="<%= author ? author.first_name : '' %>" required="true" />
+      <label class="form-label" for="family_name">Family Name<span class="text-info">*</span>:</label>
+      <input id="family_name" class="form-control" type="text" name="family_name" value="<%= author ? author.family_name : '' %>" required="true" />
+      <label class="form-label" for="date_of_birth">Date of birth:</label>
+      <input id="date_of_birth" class="form-control" type="date" name="date_of_birth" value="<%= author ? author.date_of_birth : '' %>" />
+      <label class="form-label" for="date_of_death">Date of death:</label>
+      <input id="date_of_death" class="form-control" type="date" name="date_of_death" value="<%= author ? author.date_of_death : '' %>" />
+    </div>
+    <button class="btn btn-primary" type="submit">Submit</button>
+  </form>
+
+</div>
