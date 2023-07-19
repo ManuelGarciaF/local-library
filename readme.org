@@ -1,0 +1,9 @@
+#+title: Local Library Project
+
+[[https://developer.mozilla.org/en-US/docs/Learn/Server-side/Express_Nodejs][Local Library Tutorial]] from MDN.
+
+*** Running
+Dev server:
+#+begin_src sh
+npm run dev
+#+end_src
