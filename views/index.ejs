@@ -14,10 +14,10 @@
 </head>
 
 <body>
+  <h1 class="my-2 ms-2" >Local Library Catalog</h1>
   <div class="container-fluid align-items-start row">
     <%- include("./partials/sidebar") %>
       <div class="col">
-        <h1>Local Library Homepage</h1>
         <div class="container" id="main-container"
              hx-trigger="load" hx-get="/catalog/info"
              hx-target="this">

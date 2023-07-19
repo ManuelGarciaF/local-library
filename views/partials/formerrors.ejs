@@ -1,0 +1,9 @@
+<% if (errors.length > 0) { %>
+<ul class="list-unstyled alert alert-danger">
+    <% errors.forEach(error => { %>
+    <li>
+        <%= error.msg %>
+    </li>
+    <% }) %>
+</ul>
+<% } %>

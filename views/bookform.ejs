@@ -1,0 +1,50 @@
+<h2>New Book</h2>
+<div class="col">
+  <%- include("./partials/formerrors") %>
+
+  <form hx-post="/catalog/book/create">
+    <div class="form-group mb-3">
+      <label class="form-label" for="title">
+        Title
+        <span class="text-info">*</span>
+        :
+      </label>
+      <input id="title" class="form-control" type="text" name="title" value="<%= book ? book.title : '' %>" required="true" placeholder="Name of book" />
+
+      <label class="form-label" for="author">
+        Author:
+        <span class="text-info">*</span>
+        :
+      </label>
+      <select id="author" class="form-control" name="author" placeholder="Select author" required="true">
+        <% authors.forEach(author => { %>
+          <option value="<%= author._id %>" selected="<%= (author._id.toString() === selectedAuthorId) ? 'true' : 'false' %>"><%= author.name %></option>
+        <% }) %>
+      </select>
+
+      <label class="form-label" for="summary">
+        Summary
+        <span class="text-info">*</span>
+        :
+      </label>
+      <textarea name="summary" id="summary" class="form-control" placeholder="Book Summary" required><%= book ? book.summary : '' %></textarea>
+
+      <label class="form-label" for="isbn">
+        ISBN
+        <span class="text-info">*</span>
+        :
+      </label>
+      <input id="isbn" class="form-control" type="text" name="isbn" value="<%= book ? book.isbn : '' %>" required placeholder="ISBN13" />
+
+      <label class="form-label">Genre :</label>
+        <% genres.forEach(genre => { %>
+          <div style="display: inline;" class="pa-1">
+            <input id="<%= genre._id %>" class="checkbox-input" type="checkbox" name="genre" value="<%= book ? book.isbn : '' %>" <%= genre.checked ? "checked" : "" %> />
+            <label for="genre._id"><%= genre.name %></label>
+          </div>
+        <% }) %>
+    </div>
+    <button class="btn btn-primary" type="submit">Submit</button>
+  </form>
+
+</div>
